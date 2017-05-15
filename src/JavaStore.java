@@ -12,6 +12,7 @@ public class JavaStore {
         String list="", currentList;
         int $index;
         double total = 0;
+        String cont;
 
         do {
 
@@ -25,12 +26,19 @@ public class JavaStore {
                 $index = currentList.indexOf("$");
                 total += Double.parseDouble(currentList.substring($index+1, currentList.length()));
 
-            } else if (userInput==2){
-                printReceipt(list, output);
-            } else {
-//            exit(output);
+            } else if (userInput==2) {
+                printReceipt(list, output, total);
             }
-        } while (userInput != 3);
+
+            output.println ("Do you want to add another item or return to Main Menu");
+           cont=input.nextLine();
+           input.nextLine();
+            System.out.println(cont.equalsIgnoreCase("n"));
+
+
+
+
+        } while ((userInput != 3) ||  !(cont.equalsIgnoreCase("n")));
 
 
 
@@ -53,8 +61,9 @@ public class JavaStore {
         return list;
     }
 
-    public static void printReceipt(String list, PrintStream output){
+    public static void printReceipt(String list, PrintStream output, double total){
         output.println(list);
+        output.printf("Total " + "$%.2f\n\n", total);
 
 
     }
