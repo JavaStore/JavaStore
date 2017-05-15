@@ -9,7 +9,9 @@ public class JavaStore {
         Scanner input=new Scanner(System.in);
         PrintStream output= System.out;
         int userInput;
-        String list="";
+        String list="", currentList;
+        int $index;
+        double total = 0;
 
         do {
 
@@ -18,7 +20,10 @@ public class JavaStore {
             userInput = input.nextInt();
 
             if(userInput ==1){
-                list += sale(output, input);
+                currentList = sale(output, input);
+                list += currentList;
+                $index = currentList.indexOf("$");
+                total += Double.parseDouble(currentList.substring($index+1, currentList.length()));
 
             } else if (userInput==2){
                 printReceipt(list, output);
@@ -50,6 +55,7 @@ public class JavaStore {
 
     public static void printReceipt(String list, PrintStream output){
         output.println(list);
+
 
     }
 }
