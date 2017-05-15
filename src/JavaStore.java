@@ -31,14 +31,10 @@ public class JavaStore {
             }
 
             output.println ("Do you want to add another item or return to Main Menu");
-           cont=input.nextLine();
-           input.nextLine();
-            System.out.println(cont.equalsIgnoreCase("n"));
+            input.nextLine();
+            cont=input.next();
 
-
-
-
-        } while ((userInput != 3) ||  !(cont.equalsIgnoreCase("n")));
+        } while ((userInput != 3) && !cont.equalsIgnoreCase("n") );
 
 
 
