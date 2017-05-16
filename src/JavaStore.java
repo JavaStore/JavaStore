@@ -9,45 +9,54 @@ public class JavaStore {
         Scanner input=new Scanner(System.in);
         PrintStream output= System.out;
         int userInput;
-        String list="", currentList;
-        int $index;
+        String list="", currentList, exitProgram = "";
         double total = 0;
-        String cont = "";
 
         do {
 
-            String menu= "(1) Sale \n(2) Print Receipt \n(3) Exit";
-            output.println(menu);
-            userInput = input.nextInt();
+            userInput = getUserInput(input, output);
 
             if(userInput ==1){
                 currentList = sale(output, input);
                 list += currentList;
-                $index = currentList.indexOf("$");
-                total += Double.parseDouble(currentList.substring($index+1, currentList.length()));
-
-                cont = exit(input, output);
+                
+                total = getTotal(currentList, total);
+                
+                exitProgram = exit(input, output);
 
             } else if (userInput==2) {
                 printReceipt(list, output, total);
             } else {
                 break;
             }
-
-
-
-        } while (!cont.equalsIgnoreCase("n") );
+            
+        } while (!exitProgram.equalsIgnoreCase("n") );
 
 
 
     }
 
+    private static double getTotal(String currentList, double total) {
+        int $index;
+        $index = currentList.indexOf("$");
+        total += Double.parseDouble(currentList.substring($index+1, currentList.length()));
+        return total;
+    }
+
+    private static int getUserInput(Scanner input, PrintStream output) {
+        int userInput;
+        String menu= "(1) Sale \n(2) Print Receipt \n(3) Exit";
+        output.println(menu);
+        userInput = input.nextInt();
+        return userInput;
+    }
+
     private static String exit(Scanner input, PrintStream output) {
-        String cont;
+        String exitProgram;
         output.println ("Do you want to exit? (y/n)");
         input.nextLine();
-        cont=input.next();
-        return cont;
+        exitProgram=input.next();
+        return exitProgram;
     }
 
     public static String sale(PrintStream output, Scanner input){
@@ -71,7 +80,5 @@ public class JavaStore {
     public static void printReceipt(String list, PrintStream output, double total){
         output.println(list);
         output.printf("Total " + "$%.2f\n\n", total);
-
-
     }
 }
