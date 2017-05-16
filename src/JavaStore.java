@@ -12,7 +12,7 @@ public class JavaStore {
         String list="", currentList;
         int $index;
         double total = 0;
-        String cont;
+        String cont = "";
 
         do {
 
@@ -26,18 +26,28 @@ public class JavaStore {
                 $index = currentList.indexOf("$");
                 total += Double.parseDouble(currentList.substring($index+1, currentList.length()));
 
+                cont = exit(input, output);
+
             } else if (userInput==2) {
                 printReceipt(list, output, total);
+            } else {
+                break;
             }
 
-            output.println ("Do you want to add another item or return to Main Menu");
-            input.nextLine();
-            cont=input.next();
 
-        } while ((userInput != 3) && !cont.equalsIgnoreCase("n") );
+
+        } while (!cont.equalsIgnoreCase("n") );
 
 
 
+    }
+
+    private static String exit(Scanner input, PrintStream output) {
+        String cont;
+        output.println ("Do you want to exit? (y/n)");
+        input.nextLine();
+        cont=input.next();
+        return cont;
     }
 
     public static String sale(PrintStream output, Scanner input){
@@ -48,7 +58,8 @@ public class JavaStore {
         String list;
 
         output.println("What item would you like?");
-        item = input.next();
+        input.nextLine();
+        item = input.nextLine();
         output.println("Quantity");
         quantity=input.nextInt();
         output.println("Price");
